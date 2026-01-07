@@ -33,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveDirection;
     private Rigidbody rb;
 
+    public int nombreDeFusibles = 0;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();

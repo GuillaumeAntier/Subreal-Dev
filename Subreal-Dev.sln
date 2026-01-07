@@ -1,0 +1,36 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Subreal", "Subreal", "{7F856E9A-924F-2F0B-9447-B105BCE3077C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Subreal\Assembly-CSharp-Editor.csproj", "{43359774-54A4-1918-DFC5-00ACDE6762C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Subreal\Assembly-CSharp.csproj", "{D1310F93-4948-0FC3-E151-85EA73C13F73}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43359774-54A4-1918-DFC5-00ACDE6762C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43359774-54A4-1918-DFC5-00ACDE6762C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43359774-54A4-1918-DFC5-00ACDE6762C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43359774-54A4-1918-DFC5-00ACDE6762C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1310F93-4948-0FC3-E151-85EA73C13F73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1310F93-4948-0FC3-E151-85EA73C13F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1310F93-4948-0FC3-E151-85EA73C13F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1310F93-4948-0FC3-E151-85EA73C13F73}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{43359774-54A4-1918-DFC5-00ACDE6762C3} = {7F856E9A-924F-2F0B-9447-B105BCE3077C}
+		{D1310F93-4948-0FC3-E151-85EA73C13F73} = {7F856E9A-924F-2F0B-9447-B105BCE3077C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B7F67429-645A-4070-AA2A-4EE74359E17D}
+	EndGlobalSection
+EndGlobal
