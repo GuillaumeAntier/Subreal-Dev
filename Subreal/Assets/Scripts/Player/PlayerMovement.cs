@@ -22,7 +22,10 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public float groundCheckRadius = 0.3f;
     public LayerMask whatIsGround;
+    public LayerMask WhatIsWall;
     private bool grounded;
+    private bool walled;
+    public float wallCheckDistance = 0.5f; 
 
     [Header("References")]
     public Transform orientation;
@@ -45,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         grounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, whatIsGround);
+        walled = Physics.CheckSphere(groundCheck.position, groundCheckRadius, WhatIsWall);
 
         HandleInput();
         ControlSpeed();
@@ -89,8 +93,16 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void MovePlayer()
-    {
+    {   
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        RaycastHit wallHit;
+        bool wallInFront = Physics.Raycast(transform.position, moveDirection.normalized, out wallHit, wallCheckDistance, WhatIsWall);
+
+        if (wallInFront)
+        {
+            return; 
+        }
 
         rb.AddForce(moveSpeed * airControl * moveDirection.normalized * (grounded ? 120f : 120f), ForceMode.Acceleration);
     }
@@ -107,9 +119,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Jump()
-    {
+    {   
+        if (walled)
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         if (grounded)
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z); // reset vertical velocity only when grounded
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z); 
 
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
