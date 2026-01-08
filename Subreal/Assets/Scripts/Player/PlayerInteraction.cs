@@ -15,6 +15,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private Camera playerCamera;
     private GameObject currentInteractable;
+    [HideInInspector] public bool isPaused = false;
 
     void Start()
     {
@@ -25,7 +26,14 @@ public class PlayerInteraction : MonoBehaviour
     }
 
     void Update()
-    {
+    {   
+        if (isPaused)
+        {
+            if (interactionText != null) interactionText.gameObject.SetActive(false);
+            if (crosshair != null) crosshair.gameObject.SetActive(false); 
+            return; 
+        }
+
         CheckForInteractable();
         
         if (currentInteractable != null && Input.GetKeyDown(interactKey))
@@ -51,6 +59,10 @@ public class PlayerInteraction : MonoBehaviour
                 interactionText.gameObject.SetActive(true);
                 if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Grabbable"))
                     interactionText.text = "Press E to grab";
+                else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Fusible"))
+                    interactionText.text = "Press E to pick up";
+                else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("FusibleBox"))
+                    interactionText.text = "Press E to open";
                 else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Button"))
                     interactionText.text = "Press E to press";
             }
@@ -65,6 +77,12 @@ public class PlayerInteraction : MonoBehaviour
             if (interactionText != null)
                 interactionText.gameObject.SetActive(false);
         }
+    }
+    
+    public void SetPaused(bool state)
+    {
+        isPaused = state;
+        if (!state && crosshair != null) crosshair.gameObject.SetActive(true);
     }
     
     void InteractWithObject(GameObject interactable)

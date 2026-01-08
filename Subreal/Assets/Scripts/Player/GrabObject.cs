@@ -10,6 +10,7 @@ public class ObjectGrab : MonoBehaviour
     public float grabDistance = 3f;
     public float throwForce = 10f;
     public string grabbableTag = "Grabbable"; 
+    public string fusibleTag = "FusibleBox";
     public KeyCode grabKey = KeyCode.E;
     public KeyCode throwKey = KeyCode.F;
     public LayerMask playerLayer;
@@ -123,6 +124,19 @@ public class ObjectGrab : MonoBehaviour
                 else
                 {
                     Debug.LogWarning("Grabbable object " + hitObject.name + " is missing a Rigidbody!");
+                }
+            }
+            else if (hitObject.CompareTag(fusibleTag))
+            {
+                Debug.Log("Interacting with fusible box: " + hitObject.name);
+                
+                if (hit.collider.TryGetComponent(out FuseBox box))
+                    {
+                        box.EnterPuzzle();
+                    }
+                else
+                {
+                    Debug.LogWarning("Fusible box " + hitObject.name + " is missing the FuseBox script!");
                 }
             }
             else
