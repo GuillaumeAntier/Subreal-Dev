@@ -10,21 +10,33 @@ public class MovementHero : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
-
     void Update()
     {
-        float moveX = 0;
-        float moveY = 0;
+        rb.linearVelocity = new Vector2(0,0);
+        if (Input.GetKey("w")){
+            rb.linearVelocity = new Vector2(0,1*movementSpeed);
+        }
+        if (Input.GetKey("a")){
+            rb.linearVelocity = new Vector2(-1*movementSpeed,0);
+        }
+        if (Input.GetKey("s")){
+            rb.linearVelocity = new Vector2(0,-1*movementSpeed);
+        }
+        if (Input.GetKey("d")){
+            rb.linearVelocity = new Vector2(1*movementSpeed,0);
+        }
+        if (Input.GetKey("w") && Input.GetKey("d")){
+            rb.linearVelocity = new Vector2(0.707f*movementSpeed,0.707f*movementSpeed);
+        }
+        if (Input.GetKey("w") && Input.GetKey("a")){
+            rb.linearVelocity = new Vector2(-0.707f*movementSpeed,0.707f*movementSpeed);
+        }
+        if (Input.GetKey("s") && Input.GetKey("d")){
+            rb.linearVelocity = new Vector2(0.707f*movementSpeed,-0.707f*movementSpeed);
+        }
+        if (Input.GetKey("s") && Input.GetKey("a")){
+            rb.linearVelocity = new Vector2(-0.707f*movementSpeed,-0.707f*movementSpeed);
+        }
         
-        if (Input.GetKey("z")) moveY = 1;
-        if (Input.GetKey("s")) moveY = -1;
-        if (Input.GetKey("a")) moveX = -1;
-        if (Input.GetKey("d")) moveX = 1;
-        
-        Vector2 direction = new Vector2(moveX, moveY);
-        if (direction.magnitude > 0)
-            direction = direction.normalized;
-        
-        rb.linearVelocity = direction * movementSpeed;
     }
 }
