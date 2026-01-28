@@ -14,9 +14,33 @@ public class FuseBox : MonoBehaviour
 
     void Update()
     {
-        if (isFocused && Input.GetKeyDown(KeyCode.Escape))
+        if (isFocused)
         {
-            ExitPuzzle();
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ExitPuzzle();
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                TryClickButton();
+            }
+        }
+    }
+
+    private void TryClickButton()
+    {
+        Ray ray = puzzleCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            ClickableFuse fuse = hit.collider.GetComponent<ClickableFuse>();
+            
+            if (fuse != null)
+            {
+                fuse.Interact(playerMovement);
+            }
         }
     }
 
@@ -28,11 +52,13 @@ public class FuseBox : MonoBehaviour
         puzzleCamera.enabled = true;
 
         playerMovement.enabled = false;
+        
+        var rb = playerMovement.GetComponent<Rigidbody>();
+        if(rb != null) rb.linearVelocity = Vector3.zero;
 
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None; 
+        Cursor.visible = true;                
 
-        playerMovement.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         playerInteraction.SetPaused(true);
     }
 
@@ -45,8 +71,9 @@ public class FuseBox : MonoBehaviour
 
         playerMovement.enabled = true;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked; 
+        Cursor.visible = false;                 
+
         playerInteraction.SetPaused(false);
     }
 }
